@@ -13,12 +13,14 @@ def comet_data():
     '''
     Produce five random data series for use as sample chart.
     Data is presented as an array of (x, y, z)
+    Sample data from IMF World Economic Outlook October 2013, annual data from 2013 to 2018
     '''
-    data = {"Title": "Title", "X": "X-axis", "Y": "Y-axis", "Z": "Z-axis",
-            "Data": {"Item1": [[4.3,7.4,0.2],[4.7,7.3,0.3],[4.8,7.1,0.4],[5.3,6.5,0.5],[5.7,6.3,0.6]],
-                     "Item2": [[2.1,3.4,0.2],[1.9,3.7,0.3],[1.8,3.8,0.4],[1.4,4.3,0.5],[1.2,4.5,0.6]],
-                     "Item3": [[6.5,4.5,0.1],[6.7,4.3,0.2],[6.9,4.1,0.3],[7.2,3.9,0.4],[7.5,3.6,0.5]],
-                     "Item4": [[5.5,4.4,0.1],[5.3,4.6,0.2],[5,4.9,0.3],[4.8,5.1,0.4],[4.6,5.3,0.5]]}}
+    data = {"Title": "Economic Variance", "X": "Gross domestic product based on PPP per capita", "Y": "Inflation, average consumer prices", "Z": "Unemployment rate",
+            "Data": {"Brazil": [[12117.752,6.346,5.8],[12528.232,5.771,6],[13090.807,5.309,6.5],[13719.01,4.698,6.5],[14396.012,4.5,6.5],[15105.358,4.5,6.5]],
+                     "Indonesia": [[5181.563,7.257,5.9],[5477.907,7.542,5.8],[5842.114,5.753,5.5],[6232.261,5.236,5.3],[6647.787,4.729,5.2],[7090.518,4.505,5.2]],
+                     "China": [[9828.32,2.735,4.1],[10660.889,2.971,4.1],[11586.633,3,4.1],[12594.169,3,4.1],[13681.981,3,4.1],[14861.484,3,4.1]],
+                     "Mongolia": [[5932.083,9.671,6.1],[6633.784,7.482,5.4],[7059.292,7.311,4.6],[7352.114,6.533,4.3],[8099.178,6.141,4.1],[8651.493,5.912,3]],
+                     "Mauritius": [[16082.193,4.742,8.262],[16966.211,4.731,8.034],[18025.106,5.058,7.521],[19162.869,5.012,7.395],[20358.783,5.012,7.423],[21627.805,5.012,7.423]]}}
     return data
 
 def comet(data):
@@ -35,18 +37,23 @@ def comet(data):
     # http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.axes
     ax = plt.Axes(fig, [0.08, 0.06, 0.9, 0.9])
     fig.add_axes(ax)
+    # Get some constants
     idxlen = len(data['Data'])
+    Zmax = []
+    for m in data['Data'].values():
+        Zmax.append(max([z for [x,y,z] in m]))
+    Zmax = max(Zmax)*1.8
     plt_list = [] # list for holding all the points plotted
     entity_list = []
     for idx, series in enumerate(data['Data']):
         clr = cm.Spectral(float(idx+1)/idxlen)[:-1]
-        srslen = len(series)
+        srslen = len(data['Data'][series])
         for a, [x, y, z] in enumerate(data['Data'][series]):
             try:
                 # http://stackoverflow.com/q/10422504
-                p, = ax.plot(x, y, marker='o', ms=100*z, mec=None, mew=0.0, 
+                p, = ax.plot(x, y, marker='o', ms=100*z/Zmax, mec=None, mew=0.0, 
                             alpha=(a+1)/float(srslen), mfc=clr)
-                if a+1 == srslen:
+                if a+2 == srslen:
                     ax.text(x, y, series, fontsize=8)
             except:
                 p = None
@@ -99,4 +106,4 @@ def comet(data):
     for tick in ax.yaxis.get_major_ticks():
       tick.label1.set_fontsize(fontsize)
     # Return the plot
-    FigureCanvasAgg(fig).print_figure('Test')
+    FigureCanvasAgg(fig).print_figure('Comet')

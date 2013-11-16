@@ -12,6 +12,10 @@ Comets
 
 Those familiar with [Gapminder][1] will know of the power of moving bubble-charts. You may also have experienced the tedium of waiting for the bubbles to finish moving so you can see the result. The comet chart is a simple way of presenting the data in a static format.
 
+The chart below has GDP per capita and Inflation on the X and Y axes, and Unemployment as a % on the Z for the years 2013 to 2018 (taken from the IMF World Economic Outlook October 2013 update).
+
+![][2]
+
 Shadows
 -------
 
@@ -22,10 +26,11 @@ An alternative is to create a range from comparative data and highlight the seri
 Licenses
 --------
 
-The code is licensed under [GPL][2] and the chart designs themselves are [CC BY-SA 3.0][3].
+The code is licensed under [GPL][3] and the chart designs themselves are [CC BY-SA 3.0][4].
 
 Attribution: Gavin Chait, http://www.whythawk.com/
 
   [1]: http://www.gapminder.org/
-  [2]: http://www.gnu.org/copyleft/gpl.html
-  [3]: http://creativecommons.org/licenses/by-sa/3.0/deed.en_GB
+  [2]: http://farm4.staticflickr.com/3691/10889219054_de8607c86a.jpg
+  [3]: http://www.gnu.org/copyleft/gpl.html
+  [4]: http://creativecommons.org/licenses/by-sa/3.0/deed.en_GB
