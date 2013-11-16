@@ -19,4 +19,13 @@ Spaghetti charts are the sort of horrifying disaster that result when attempting
 
 An alternative is to create a range from comparative data and highlight the series you wish to show. Most often, a chart is used to demonstrate a comparison between different series. Given a known range it is simple to show how a highlighted / selected series looks relative to others.
 
+Licenses
+--------
+
+The code is licensed under [GPL][2] and the chart designs themselves are [CC BY-SA 3.0][3].
+
+Attribution: Gavin Chait, http://www.whythawk.com/
+
   [1]: http://www.gapminder.org/
+  [2]: http://www.gnu.org/copyleft/gpl.html
+  [3]: http://creativecommons.org/licenses/by-sa/3.0/deed.en_GB
