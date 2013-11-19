@@ -3,11 +3,8 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_agg import FigureCanvasAgg
-from pylab import array
-from decimal import Decimal
 from matplotlib.font_manager import FontProperties
 from matplotlib import cm
-from matplotlib.lines import Line2D
 
 def comet_data():
     '''
@@ -27,7 +24,7 @@ def comet(data):
     '''
     Data point is (x, y, z)
     Data structure is: 
-        {"Title": "Title", "X-": "X-axis", "Y": "Y-axis", "Z": "Z-axis",
+        {"Title": "Title", "X": "X-axis", "Y": "Y-axis", "Z": "Z-axis",
         "Data": ['series_name': [x,y,z],[x,y,z], etc. for each series]}
     Each new series will get its own colour assigned;
     '''
@@ -75,29 +72,16 @@ def comet(data):
                      markerscale=0.5, prop=fontP)
     # http://www.mail-archive.com/matplotlib-users@lists.sourceforge.net/msg12449.html
     lgnd.draw_frame(False)
-    # Create the grid
+    # Create the grid (centre-line grid to create quadrants)
     # http://matplotlib.sourceforge.net/api/artist_api.html#matplotlib.lines.Line2D
     # http://matplotlib.sourceforge.net/users/artists.html#axis-containers
+    # http://matplotlib.org/examples/pylab_examples/axhspan_demo.html
     xax = ax.xaxis.get_ticklocs()
     yax = ax.yaxis.get_ticklocs()
-    fxax = xax[-1] - xax[0]
-    fyax = yax[-1] - yax[0]
-    try:
-        topx = 1 - (xax[-1] - min(xax[-1], yax[-1]))/fxax
-    except:
-        topx = 1.
-    try:
-        topy = 1 - (yax[-1] - min(xax[-1], yax[-1]))/fyax
-    except:
-        topy = 1.
-    try:
-        botx = (yax[0] - min(xax[0], yax[0]))/fxax
-    except:
-        botx = 0.
-    try:
-        boty = (xax[0] - min(xax[0], yax[0]))/fyax
-    except:
-        boty = 0.
+    fxax = (max(xax)-min(xax))/2 + min(xax) # Find the midpoint
+    fyax = (max(yax)-min(yax))/2 + min(yax)
+    ax.axhline(y=fyax, linewidth=1, color='black')
+    ax.axvline(x=fxax, linewidth=1, color='black')
     # update the font size of the x and y axes
     # https://www.cfa.harvard.edu/~jbattat/computer/python/pylab/
     fontsize=10
@@ -106,4 +90,4 @@ def comet(data):
     for tick in ax.yaxis.get_major_ticks():
       tick.label1.set_fontsize(fontsize)
     # Return the plot
-    FigureCanvasAgg(fig).print_figure('Comet')
+    FigureCanvasAgg(fig).print_figure('comet')
